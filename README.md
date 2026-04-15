@@ -88,3 +88,4 @@ sudo apt install -y build-essential \
 * [Ultralytics (YOLOv11)](https://github.com/ultralytics/ultralytics)
 * [Tencent ncnn](https://github.com/Tencent/ncnn)
 * [Roboflow Universe](https://universe.roboflow.com/)
+* https://github.com/opencv/opencv
