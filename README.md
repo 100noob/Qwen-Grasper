@@ -1,29 +1,32 @@
 # RPi-ColorBlock-Detection
-本项目是一个专为 Raspberry Pi 5 设计的颜色方块识别系统。包含基于 YOLOv11 的模型训练流程（PC端）以及基于 ncnn 框架的 Python 高性能推理部署（树莓派端）。
-建议使用 **VS Code** 并安装 **CMake Tools** **c/c++** **python**插件.
 
-## 🚀 项目特性
-* **端到端流程**：从 Roboflow 数据集训练到树莓派实机部署。
-* **自动化构建**：`color_cube_train` 使用 CMake 自动管理 Python 虚拟环境及依赖安装。
-* **高性能推理**：`inference` 部分采用 ncnn 框架，在树莓派 5 上实现流畅的实时检测。
+This project is a high-performance color block recognition system specifically designed for the **Raspberry Pi 5**. It features a complete pipeline from **YOLOv11** model training (PC side) to optimized inference deployment using the **ncnn** framework (Raspberry Pi side).
 
-## 📁 项目结构
-```
+> **Note**: It is highly recommended to use **VS Code** with the **CMake Tools**, **C/C++**, and **Python** extensions installed.
+
+## 🚀 Key Features
+* **End-to-End Pipeline**: From dataset training on Roboflow to real-world deployment on Raspberry Pi.
+* **Automated Construction**: The `color_cube_train` module uses CMake to automatically manage Python virtual environments (venv) and dependency installation.
+* **High-Performance Inference**: The `inference` module utilizes the **ncnn** framework to achieve smooth, real-time detection on the Raspberry Pi 5.
+
+## 📁 Project Structure
+```text
 RPi-ColorBlock-Detection/
-├── color_cube_train/          # 模型训练模块 (PC端执行)
-│   ├── src/                   # 训练核心代码
-│   ├── source_data/           # 原始数据集 (70% Train, 20% Val, 10% Test)
-│   ├── CMakeLists.txt         # 自动化构建脚本 (自动配置 venv 与依赖)
-│   ├── data.yaml              # YOLO 数据集配置文件
-│   ├── paths.py               # 路径管理工具
-│   ├── requirements.txt       # 训练端 Python 依赖清单
-│   ├── yolo11s.pt             # 预训练权重
-│   └── runs/                  # 训练结果与日志输出
-└── inference/                 # 树莓派部署模块 (Python + ncnn)             
-    ├── models/                # 存放转换后的 ncnn 模型 (.param / .bin)
-    ├── requirements.txt       # 推理端依赖 (不含全局库)
-    └── main.py                # 推理启动程序
+├── color_cube_train/          # Model training module (Execute on PC)
+│   ├── src/                   # Core training scripts
+│   ├── source_data/           # Raw dataset (70% Train, 20% Val, 10% Test)
+│   ├── CMakeLists.txt         # Auto-build script (Configures venv & dependencies)
+│   ├── data.yaml              # YOLO dataset configuration
+│   ├── paths.py               # Path management utility
+│   ├── requirements.txt       # Python dependency list for training
+│   ├── yolo11s.pt             # Pre-trained weights
+│   └── runs/                  # Training outputs and logs
+└── inference/                 # Raspberry Pi deployment module (Python + ncnn)
+    ├── models/                # Converted ncnn models (.param / .bin)
+    ├── requirements.txt       # Inference dependencies (excluding global libs)
+    └── main.py
 ```
+
 ## 📊 数据集
 数据集地址：https://universe.roboflow.com/brian114-xv3lk/color-cube-gvk4q
 
