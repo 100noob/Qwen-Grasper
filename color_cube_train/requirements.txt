@@ -1,0 +1,6 @@
+ultralytics
+onnx
+onnxruntime-gpu
+onnxslim
+pnnx
+ncnn

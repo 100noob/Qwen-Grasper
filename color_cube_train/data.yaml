@@ -1,0 +1,12 @@
+path: dataset
+
+train: images/train
+val: images/val
+test: images/test
+nc: 5
+names:
+  0: purple-cube
+  1: green-cube
+  2: orange-cube
+  3: pink-cube
+  4: yellow-cube
