@@ -1,5 +1,6 @@
 # RPi-ColorBlock-Detection
 本项目是一个专为 Raspberry Pi 5 设计的颜色方块识别系统。包含基于 YOLOv11 的模型训练流程（PC端）以及基于 ncnn 框架的 Python 高性能推理部署（树莓派端）。
+建议使用 **VS Code** 并安装 **CMake Tools** **c/c++** **python**插件.
 
 ## 🚀 项目特性
 * **端到端流程**：从 Roboflow 数据集训练到树莓派实机部署。
