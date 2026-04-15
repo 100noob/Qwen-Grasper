@@ -78,7 +78,7 @@ sudo apt install -y build-essential \
 * 在树莓派上，为了避免虚拟环境冲突和编译失败，请务必执行```sudo apt install -y python3-opencv```(把opencv直接全局安装)
 
 
-## 🤝 鸣谢
+##  鸣谢
 * [Ultralytics (YOLOv11)](https://github.com/ultralytics/ultralytics)
 * [Tencent ncnn](https://github.com/Tencent/ncnn)
 * [Roboflow Universe](https://universe.roboflow.com/)
