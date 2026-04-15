@@ -1,38 +1,38 @@
 import os
 from ultralytics import YOLO
-from paths import  DATA_YAML,DATASET,ROOT_DIR
+from paths import DATA_YAML, DATASET, ROOT_DIR
 
 def export_all():
-    """导出适用于树莓派的模型格式"""
+    """Export the model to formats suitable for Raspberry Pi"""
 
-    # 1. 加载训练好的模型
+    # 1. Load the trained model
     model_path = f"{ROOT_DIR}/runs/detect/color-cube-train/exp_320_optimized/weights/best.pt"
 
     if not os.path.exists(model_path):
-        print(" 模型不存在，请先训练")
+        print("Model does not exist, please train first.")
         return
 
     model = YOLO(model_path)
 
-    print(" 开始导出模型...")
+    print("Starting model export...")
 
-    # 2. 导出 ONNX（通用）
+    # 2. Export to ONNX (General purpose)
     model.export(
         format="onnx",
-        imgsz=320,  #树莓派480卡，改成320
-        opset=12,   # 树莓派兼容性更好
+        imgsz=320,  # Resolution adjusted to 320 for Raspberry Pi performance
+        opset=12,   # Better compatibility for Raspberry Pi
         simplify=True
     )
-    print(" ONNX 导出完成")
+    print("ONNX export completed.")
 
-    # 3. 导出 NCNN（树莓派推荐）
+    # 3. Export to NCNN (Recommended for Raspberry Pi)
     try:
         model.export(
             format="ncnn",
             imgsz=320
         )
-        print(" NCNN 导出完成（推荐用于树莓派）")
+        print("NCNN export completed (Recommended for Raspberry Pi).")
     except Exception as e:
-        print(" NCNN 导出失败（可能环境不支持）:", e)
+        print(f"NCNN export failed (Environment might not be supported): {e}")
 
-    print("所有导出完成")
+    print("All exports finished.")

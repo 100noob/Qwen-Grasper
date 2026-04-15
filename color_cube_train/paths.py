@@ -1,8 +1,8 @@
 import os
 
-# 无论在哪里调用，这行代码都会锁定到当前文件（paths.py）所在的物理位置
+# No matter where it is called, this line locks to the physical location of the current file (paths.py)
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
-# 预定义常用路径
+# Predefined common paths
 DATA_YAML = os.path.join(ROOT_DIR, "data.yaml")
 DATASET = os.path.join(ROOT_DIR, "dataset")
