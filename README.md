@@ -1,7 +1,4 @@
 # RPi-ColorBlock-Detection
-这是一个针对你的项目需求优化的 README.md。它明确了 Python 版推理、CMake 自动环境构建以及树莓派环境的特殊说明。
-
-RPi-ColorBlock-Detection
 本项目是一个专为 Raspberry Pi 5 设计的颜色方块识别系统。包含基于 YOLOv11 的模型训练流程（PC端）以及基于 ncnn 框架的 Python 高性能推理部署（树莓派端）。
 
 ## 🚀 项目特性
