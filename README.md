@@ -124,6 +124,11 @@ Description: A data processing pipeline that converts the raw JSONL output from 
 
 3. lora_finetune_unsloth
 Description: The core training module utilized for fine-tuning the Qwen Large Multimodal Model. It leverages the Unsloth library to implement highly memory-efficient LoRA (Low-Rank Adaptation) training. This program enables the model to learn specific tasks—such as counting color blocks and following a specific grasping order—based on the converted dataset.
+
+## 🚧 Project Status: Under Development
+The features outlined in the project description—specifically the full robotic arm integration and the end-to-end inference loop—are currently in progress.
+
+
 ##  Acknowledgements
 * [Ultralytics (YOLOv11)](https://github.com/ultralytics/ultralytics)
 * [Tencent ncnn](https://github.com/Tencent/ncnn)
