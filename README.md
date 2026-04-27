@@ -115,7 +115,15 @@ finetune_inference/
     ├── paths.py
     └── pip.txt                              # Dependency list
 ```
+## Project Overview
+1. click
+Description: A data annotation tool used for interactive object detection. It captures the absolute coordinates of bounding boxes and records the specific click sequences (order) of identified color blocks within an image. This establishes the ground truth for both location and grasping priority.
 
+2. Detection-to-VLM_Conversation_Format_Conversion
+Description: A data processing pipeline that converts the raw JSONL output from the click tool into a VLM-specific conversational format. It formats the data to include structured system prompts, user instructions, and assistant responses, specifically tailored for the Qwen (Qwen-VL) model’s fine-tuning requirements.
+
+3. lora_finetune_unsloth
+Description: The core training module utilized for fine-tuning the Qwen Large Multimodal Model. It leverages the Unsloth library to implement highly memory-efficient LoRA (Low-Rank Adaptation) training. This program enables the model to learn specific tasks—such as counting color blocks and following a specific grasping order—based on the converted dataset.
 ##  Acknowledgements
 * [Ultralytics (YOLOv11)](https://github.com/ultralytics/ultralytics)
 * [Tencent ncnn](https://github.com/Tencent/ncnn)
