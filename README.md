@@ -1,4 +1,4 @@
-# RPi-ColorBlock-Detection
+# 1.YOLO-Edge-Perception
 
 This project is a high-performance color block detection system specifically designed for the **Raspberry Pi 5**. It features a complete pipeline from **YOLOv11** model training (PC side) to optimized inference deployment using the **ncnn** framework (Raspberry Pi side).
 
@@ -82,7 +82,39 @@ sudo apt install -y build-essential \
 ```
 * 3.Raspberry Pi Specific (OpenCV)
 * To avoid virtual environment conflicts and compilation issues on Raspberry Pi, install OpenCV globally:```sudo apt install -y python3-opencv```
-
+# 2.Interactive-Teaching-to-VLM-Dataset
+```
+finetune_inference/
+├── 📂 click/                                # Stage 1: Annotation Tool
+│   ├── 📂 build/                            # Compiled files
+│   ├── 📂 destset/                          # Output directory for annotated JSONL
+│   ├── 📂 main/                             # Source code for click interaction
+│   ├── 📂 model/                            # YOLO model weights (.pt)
+│   ├── 📂 my_dir/                           # [User-Created] Target folder for processed images
+│   ├── 📂 src_images/                       # [User-Created] Raw source images for annotation
+│   ├── CMakeLists.txt
+│   ├── paths.py                             # Configuration for local paths
+│   ├── readme.txt
+│   └── requirements.txt
+│
+├── 📂 Detection-to-VLM_Conversation_Format_Conversion/  # Stage 2: Data Formatting
+│   ├── 📂 JSONL/                            # Converted conversational JSONL output
+│   ├── 📂 main/                             # Normalization & formatting scripts
+│   ├── 📂 src_images/                       # [User-Created] Symbolic link or copy of images
+│   ├── 📂 venv/                             # Virtual environment
+│   ├── CMakeLists.txt
+│   ├── paths.py
+│   └── requirements.txt
+│
+└── 📂 lora_finetune_unsloth/                 # Stage 3: Training
+    ├── 📂 export_weight/                    # Saved LoRA adapters/weights
+    ├── 📂 imgs_and_json/
+    │   └── 📂 src_imgs/                     # [User-Created] Final dataset images
+    ├── 📂 main/                             # Unsloth training scripts
+    ├── 📂 venv/                             # Virtual environment
+    ├── paths.py
+    └── pip.txt                              # Dependency list
+```
 
 ##  Acknowledgements
 * [Ultralytics (YOLOv11)](https://github.com/ultralytics/ultralytics)
