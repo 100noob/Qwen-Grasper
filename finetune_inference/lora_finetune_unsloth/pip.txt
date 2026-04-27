@@ -1,0 +1,16 @@
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# 1. Install uv (if not already installed)
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# 2. Create a virtual environment named 'env' in the current directory
+uv venv env --python 3.11
+
+# 3. Activate the virtual environment
+source env/bin/activate
+
+# 4. Install Unsloth and automatically align the PyTorch backend for DGX
+uv pip install unsloth --torch-backend=auto
+
+# 5. Install other dependencies used in the code (Pillow, OpenCV, datasets, etc.)
+uv pip install pillow opencv-python datasets ultralytics trl
