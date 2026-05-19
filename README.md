@@ -106,14 +106,19 @@ finetune_inference/
 │   ├── paths.py
 │   └── requirements.txt
 │
-└── 📂 lora_finetune_unsloth/                 # Stage 3: Training
-    ├── 📂 export_weight/                    # Saved LoRA adapters/weights
-    ├── 📂 imgs_and_json/
-    │   └── 📂 src_imgs/                     # [User-Created] Final dataset images
-    ├── 📂 main/                             # Unsloth training scripts
-    ├── 📂 venv/                             # Virtual environment
-    ├── paths.py
-    └── pip.txt                              # Dependency list
+├── 📂 lora_finetune_unsloth/                 # Stage 3: Training
+│   ├── 📂 export_weight/                    # Saved LoRA adapters/weights
+│   ├── 📂 imgs_and_json/
+│   │   └── 📂 src_imgs/                     # [User-Created] Final dataset images
+│   ├── 📂 main/                             # Unsloth training scripts
+│   ├── 📂 venv/                             # Virtual environment
+│   ├── paths.py
+│   ├── pip.txt                              # Dependency list
+│   └── requirements.txt                     # Added
+│
+└── 📂 model_Finetune_test/                   # Stage 4: Testing
+    ├── 📂 main/                             # Inference testing scripts
+    └── requirements.txt                     # Added
 ```
 ## Project Overview
 1. click
@@ -124,6 +129,48 @@ Description: A data processing pipeline that converts the raw JSONL output from 
 
 3. lora_finetune_unsloth
 Description: The core training module utilized for fine-tuning the Qwen Large Multimodal Model. It leverages the Unsloth library to implement highly memory-efficient LoRA (Low-Rank Adaptation) training. This program enables the model to learn specific tasks—such as counting color blocks and following a specific grasping order—based on the converted dataset.
+    * **`lora_finetune_unsloth/main/main.py`**: This script acts as the main entry point for the fine-tuning process. It loads the formatted conversational JSON data and raw images, configures the Unsloth FastVisionModel with LoRA parameters (for parameter-efficient training), initializes the SFTTrainer, runs the training loop, and finally exports the fine-tuned adapter weights and necessary configuration files.
+
+4. model_Finetune_test
+Description: The inference and validation module used to test the fine-tuned Qwen-VL model.
+    * **`model_Finetune_test/main/main.py`**: This script sends base64-encoded local test images and instructions to a deployed inference server (via an OpenAI-compatible API). It requests structured JSON output (including object counts, color descriptions, and bounding boxes) and subsequently parses the server's response to visually draw the predicted bounding boxes directly onto the original images, saving the results locally for validation.
+
+### Creating a Virtual Environment using `uv`
+For running `model_Finetune_test/main/main.py`, it is recommended to use `uv` (an extremely fast Python package and project manager) to create a virtual environment and install dependencies.
+
+**Step 1: Install `uv`**
+If you haven't installed `uv` yet, you can do so using the official standalone installer:
+```bash
+# On macOS and Linux
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# On Windows
+powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
+```
+
+**Step 2: Create a Virtual Environment**
+Navigate to the `model_Finetune_test` directory and create the virtual environment:
+```bash
+cd finetune_inference/model_Finetune_test
+uv venv
+```
+
+**Step 3: Activate the Virtual Environment**
+```bash
+# On Linux / macOS
+source .venv/bin/activate
+
+# On Windows
+.venv\Scripts\activate
+```
+
+**Step 4: Install Dependencies using `uv`**
+Use `uv pip` to install the required libraries listed in the `requirements.txt` file quickly:
+```bash
+uv pip install -r requirements.txt
+```
+
+Once installed, you can configure your API settings in `main.py` and run the script.
 
 ## 🚧 Project Status: Under Development
 The features outlined in the project description—specifically the full robotic arm integration and the end-to-end inference loop—are currently in progress.

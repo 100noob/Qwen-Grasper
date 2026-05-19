@@ -1,0 +1,4 @@
+unsloth
+trl
+Pillow
+datasets
