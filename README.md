@@ -2,11 +2,11 @@
 
 This project is a high-performance color block detection system specifically designed for the **Raspberry Pi 5**. It features a complete pipeline from **YOLOv11** model training (PC side) to optimized inference deployment using the **ncnn** framework (Raspberry Pi side).
 
-> **Note**: It is highly recommended to use **VS Code** with the **CMake Tools**, **C/C++**, and **Python** extensions installed.
+> **Note**: It is highly recommended to use **VS Code** with the **Python** extensions installed.
 
 ## 🚀 Key Features
 * **End-to-End Pipeline**: From dataset training on Roboflow to real-world deployment on Raspberry Pi.
-* **Automated Build System**: The `color_cube_train` module uses CMake to automatically manage Python virtual environments (venv) and dependency installation.
+* **Automated Build System**: The project uses `uv` to manage Python virtual environments and dependency installation (using `uv` can avoid pip version conflicts).
 * **High-Performance Inference**: The `inference` module utilizes the **ncnn** framework to achieve smooth, real-time detection on the Raspberry Pi 5.
 
 ## 📁 Project Structure
@@ -15,7 +15,6 @@ RPi-ColorBlock-Detection/
 ├── color_cube_train/          # Model training module (Execute on PC)
 │   ├── src/                   # Core training scripts
 │   ├── source_data/           # Raw dataset (70% Train, 20% Val, 10% Test)
-│   ├── CMakeLists.txt         # Auto-build script (Configures venv & dependencies)
 │   ├── data.yaml              # YOLO dataset configuration
 │   ├── paths.py               # Path management utility
 │   ├── requirements.txt       # Python dependency list for training
@@ -27,58 +26,37 @@ RPi-ColorBlock-Detection/
     └── main.py
 ```
 
-## 📊 Dataset
-Dataset URL：https://universe.roboflow.com/brian114-xv3lk/color-cube-gvk4q
+## 📊 Datasets & Resources
+All datasets used in this project were entirely collected and manually annotated by the author. They are completely open-source and free to use!
 
-Classes:
-0: purple-cube, 1: green-cube, 2: orange-cube, 3: pink-cube, 4: yellow-cube (Supports extension up to 7 classes)
+* **YOLO Training & Raspberry Pi 5 Deployment Dataset**:
+  [Color Cube Dataset (Roboflow)](https://app.roboflow.com/brian114-xv3lk/color-cube-gvk4q/browse?queryText=&pageSize=50&startingIndex=0&browseQuery=true)
+  *Classes: 0: purple-cube, 1: green-cube, 2: orange-cube, 3: pink-cube, 4: yellow-cube (Supports extension up to 7 classes)*
+
+* **LLM Fine-Tuning & Testing Dataset**:
+  [LLM Fine-Tuning Test Set (Roboflow)](https://app.roboflow.com/brian114-xv3lk/llm-fine-tuning-test-set-smglh/browse?queryText=&pageSize=50&startingIndex=0&browseQuery=true)
 
 ## 🛠️ Build Instructions
 1.Model Training (color-cube-train)
-This module is primarily developed in a **Windows (MSYS2)** environment.
-* **CMake Automation**:  Automatically creates a Python virtual environment and installs dependencies from `requirements.txt` (e.g., ultralytics).
+
+* **Environment Setup**: We use `uv` to quickly create a Python virtual environment and install dependencies from `requirements.txt`. Using `uv` is highly recommended because it is extremely fast and can effectively avoid pip version conflicts.
 * **Manual Prerequisite**: Please install a CUDA-enabled PyTorch in advance on Windows.
 
 * **Build Commands**:
-```
+```bash
 cd color_cube_train
-mkdir build && cd build
-cmake -G "Ninja" ..
-ninja
+uv venv
+source .venv/bin/activate  # On Windows use: .venv\Scripts\activate
+uv pip install -r requirements.txt
 ```
 
-## 📘 Environment Setup Guide
-To ensure CMake, GCC, and Ninja function correctly, follow the instructions based on your system:
- * **Windows: Using MSYS2**:
-MSYS2 provides a Linux-like package management experience (pacman), making it ideal for C++/Python mixed development.
- * 1.Download and Install MSYS2：https://www.msys2.org/
- * 2.Update Core Packages (run in MSYS2 UCRT64 terminal):
-```pacman -Syu```
-* 3.Install Development Toolchain:
-```
-pacman -S mingw-w64-ucrt-x86_64-gcc \
-          mingw-w64-ucrt-x86_64-gdb \
-          mingw-w64-ucrt-x86_64-cmake \
-          mingw-w64-ucrt-x86_64-ninja \
-          mingw-w64-ucrt-x86_64-make
-```
-* Or install the full toolchain::```pacman -S --needed base-devel mingw-w64-ucrt-x86_64-toolchain```
-* This includes gcc, g++, make, gdb, etc., and works well with VS Code or CLion.
-* 4.Configure Environment Variables
-* Add the following path to your system PATH:```C:\msys64\ucrt64\bin```
-* After this, you can directly use these tools in CMD or PowerShell within VS Code.
 
 ## 🐧 Linux: Using Ubuntu (Raspberry Pi / PC)
 * Ubuntu setup is straightforward using apt.
 * 1.Update Package Lists:```sudo apt update && sudo apt upgrade -y```
 * 2.Install Development Toolchain:
-```
-sudo apt install -y build-essential \
-                    cmake \
-                    gcc \
-                    gdb \
-                    ninja-build \
-                    git
+```bash
+sudo apt install -y build-essential git
 ```
 * 3.Raspberry Pi Specific (OpenCV)
 * To avoid virtual environment conflicts and compilation issues on Raspberry Pi, install OpenCV globally:```sudo apt install -y python3-opencv```
@@ -92,7 +70,6 @@ finetune_inference/
 │   ├── 📂 model/                            # YOLO model weights (.pt)
 │   ├── 📂 my_dir/                           # [User-Created] Target folder for processed images
 │   ├── 📂 src_images/                       # [User-Created] Raw source images for annotation
-│   ├── CMakeLists.txt
 │   ├── paths.py                             # Configuration for local paths
 │   ├── readme.txt
 │   └── requirements.txt
@@ -102,7 +79,6 @@ finetune_inference/
 │   ├── 📂 main/                             # Normalization & formatting scripts
 │   ├── 📂 src_images/                       # [User-Created] Symbolic link or copy of images
 │   ├── 📂 venv/                             # Virtual environment
-│   ├── CMakeLists.txt
 │   ├── paths.py
 │   └── requirements.txt
 │
@@ -115,6 +91,17 @@ finetune_inference/
 │   ├── paths.py
 │   ├── pip.txt                              # Dependency list
 │   └── requirements.txt                     # Added
+│
+├── 📂 test_lora_weight/                      # Stage 5: LoRA Weight Validation
+│   ├── 📂 main/                             # Inference & mAP evaluation scripts
+│   ├── 📂 src/                              # Evaluation utilities (IoU, mAP calc)
+│   ├── 📂 test_set/                         # [User-Created] Testing dataset
+│   │   ├── 📂 test_img/                     # [User-Created] Test images
+│   │   └── 📂 test_lable/                   # [User-Created] YOLO format GT labels
+│   ├── 📂 output_set/                       # Output images with bounding boxes
+│   ├── 📂 pred_set/                         # Model predicted labels
+│   ├── paths.py                             # Path configuration
+│   └── requirements.txt                     # Dependencies
 │
 └── 📂 model_Finetune_test/                   # Stage 4: Testing
     ├── 📂 main/                             # Inference testing scripts
@@ -134,6 +121,11 @@ Description: The core training module utilized for fine-tuning the Qwen Large Mu
 4. model_Finetune_test
 Description: The inference and validation module used to test the fine-tuned Qwen-VL model.
     * **`model_Finetune_test/main/main.py`**: This script sends base64-encoded local test images and instructions to a deployed inference server (via an OpenAI-compatible API). It requests structured JSON output (including object counts, color descriptions, and bounding boxes) and subsequently parses the server's response to visually draw the predicted bounding boxes directly onto the original images, saving the results locally for validation.
+
+5. test_lora_weight
+Description: Evaluates the fine-tuned LoRA weights on a designated test set, validating prediction coordinates and grasping priorities. It features mAP computation capabilities and saves visual annotated outputs.
+    * **`test_lora_weight/main/main.py`**: Runs prediction over the test dataset, querying the VLM model and saving inference outputs. Afterwards, it invokes evaluation functions.
+    * **Note**: The testing directory (`test_set`) and its subdirectories (`test_img` for images and `test_lable` for YOLO format ground-truth labels) need to be manually created and populated by the user before running the evaluation.
 
 ### Creating a Virtual Environment using `uv`
 For running `model_Finetune_test/main/main.py`, it is recommended to use `uv` (an extremely fast Python package and project manager) to create a virtual environment and install dependencies.
