@@ -36,6 +36,23 @@ All datasets used in this project were entirely collected and manually annotated
 * **LLM Fine-Tuning & Testing Dataset**:
   [LLM Fine-Tuning Test Set (Roboflow)](https://app.roboflow.com/brian114-xv3lk/llm-fine-tuning-test-set-smglh/browse?queryText=&pageSize=50&startingIndex=0&browseQuery=true)
 
+## 🛠️ Prerequisites: Installing `uv`
+This project heavily relies on `uv` (an extremely fast Python package and project manager) to manage virtual environments and dependencies. It effectively avoids pip version conflicts.
+
+If you haven't installed `uv` yet, use the official standalone installer:
+
+**On macOS and Linux:**
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+**On Windows:**
+```powershell
+powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
+```
+
+---
+
 ## 🛠️ Build Instructions
 1.Model Training (color-cube-train)
 
